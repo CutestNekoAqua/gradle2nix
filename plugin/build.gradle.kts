@@ -21,32 +21,32 @@ dependencyLocking {
 }
 
 configurations {
-    compile {
+    implementation {
         dependencies.remove(project.dependencies.gradleApi())
     }
 }
 
 dependencies {
     compileOnly("org.gradle:gradle-tooling-api:${gradle.gradleVersion}")
-    implementation("org.apache.maven:maven-repository-metadata:latest.release")
+    implementation("org.apache.maven:maven-repository-metadata:3.6.3")
     implementation(project(":ivy"))
     implementation(project(":model"))
     shadow(gradleApi())
 
-    compatTestImplementation("com.adobe.testing:s3mock-junit5:latest.release")
-    compatTestImplementation("com.squareup.okio:okio:latest.release")
-    compatTestImplementation("dev.minutest:minutest:latest.release")
-    compatTestImplementation("io.javalin:javalin:latest.release")
-    compatTestImplementation("io.strikt:strikt-core:latest.release")
-    compatTestImplementation("org.junit.jupiter:junit-jupiter-api:latest.release")
-    compatTestImplementation("org.junit.jupiter:junit-jupiter-params:latest.release")
-    compatTestImplementation(embeddedKotlin("reflect"))
-    compatTestImplementation(embeddedKotlin("stdlib-jdk8"))
-    compatTestImplementation(embeddedKotlin("test-junit5"))
+    compatTestImplementation("com.adobe.testing:s3mock-junit5:2.1.28")
+    compatTestImplementation("com.squareup.okio:okio:3.0.0-alpha.1")
+    compatTestImplementation("dev.minutest:minutest:2.0.0-alpha")
+    compatTestImplementation("io.javalin:javalin:3.13.3")
+    compatTestImplementation("io.strikt:strikt-core:0.28.2")
+    compatTestImplementation(libs.junit.api)
+    compatTestImplementation(libs.junit.params)
+    compatTestImplementation(kotlin("reflect"))
+    compatTestImplementation(kotlin("stdlib-jdk8"))
+    compatTestImplementation(kotlin("test-junit5"))
     compatTestImplementation(gradleTestKit())
     compatTestImplementation(project(":model"))
-    compatTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:latest.release")
-    compatTestRuntimeOnly("org.junit.platform:junit-platform-launcher:latest.release")
+    compatTestRuntimeOnly(libs.junit.engine)
+    compatTestRuntimeOnly(libs.junit.launcher)
 }
 
 gradlePlugin {
@@ -58,10 +58,6 @@ gradlePlugin {
             implementationClass = "org.nixos.gradle2nix.Gradle2NixPlugin"
         }
     }
-}
-
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
 }
 
 stutter {
